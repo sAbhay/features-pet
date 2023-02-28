@@ -20,6 +20,6 @@ print(account.usages)
 
 def generate_from_prompt(prompt):
   # Make a request
-  request = Request(model="openai/text-davinci-003", prompt=prompt, echo_prompt=True)
+  request = Request(model="openai/text-davinci-003", prompt=prompt, echo_prompt=False)
   request_result: RequestResult = service.make_request(auth, request)
   return request_result.completions[0].text
