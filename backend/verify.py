@@ -3,13 +3,11 @@ import eng_to_ipa as ipa
 
 g2p = GraphemeToPhoneme.from_hparams("speechbrain/soundchoice-g2p")
 
-def to_sounds(text):
-  phonemes = g2p(text)
-  return phonemes
+def to_phoneme_list(text):
+  sounds = g2p(text)
+  return sounds
 
 
-def to_phoneme(text):
+def to_phoneme_ipa(text):
   phonemes = ipa.convert(text)
   return phonemes
-
-# print(to_phoneme("To be or not to be, that is the question"))
