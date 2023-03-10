@@ -11,7 +11,7 @@
 ### Usage
 
 Currently, the server needs to be set up, so only local use is possible. To run the notebook:
-1. Set up the local environment: ```conda env create -n features-pet -f environment.yml```
+1. Set up the local environment: ```conda create -n features-pet -f environment.yml```
 2. Activate ```conda activate features-pet```
 3. Run the notebook
 4. Keep your CRFM token handy for the first log in to the API, and you're good to go
