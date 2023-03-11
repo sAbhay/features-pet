@@ -18,3 +18,8 @@ def generate_given_prompt(prompt):
 def text_to_phoneme(text):
     phoneme = verify.to_phoneme(text)
     return phoneme
+
+
+@app.errorhandler(404)
+def page_not_found(error):
+    return 'This route does not exist {}'.format(request.url), 404
