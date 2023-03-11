@@ -11,13 +11,13 @@ app = Flask(__name__)
 @app.route('/v1/generate/<prompt>')
 def generate_given_prompt(prompt):
     text = api_gen.generate_from_prompt(prompt)
-    return text
+    return jsonify(text)
 
 
 @app.route('/v1/verify/<text>')
 def text_to_phoneme(text):
-    phoneme = verify.to_phoneme(text)
-    return phoneme
+    phoneme = verify.to_phoneme_list(text)
+    return jsonify(phoneme)
 
 
 @app.errorhandler(404)
