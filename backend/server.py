@@ -8,14 +8,18 @@ app = Flask(__name__)
 #     app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1
 # )
 
-@app.route('/v1/generate/<prompt>')
-def generate_given_prompt(prompt):
+@app.route('/v1/generate')
+def generate_given_prompt():
+    data = request.get_json()
+    prompt = data['prompt']
     text = api_gen.generate_from_prompt(prompt)
     return jsonify({"text": text})
 
 
-@app.route('/v1/verify/<text>')
-def text_to_phoneme(text):
+@app.route('/v1/verify')
+def text_to_phoneme():
+    data = request.get_json()
+    text = data['text']
     phoneme = verify.to_phoneme_list(text)
     return jsonify(phoneme)
 
