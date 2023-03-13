@@ -19,7 +19,7 @@ def generate_given_params():
                                               'instruction_phonemes', 'sight_words', 'temperature'
                                               'system_message'], [])
     except Exception as e:
-        return jsonify({"error": e})
+        return jsonify({"error": str(e)})
 
     text = api_gen.generate_from_params(data['length'], data['max_syllables'], data['lexile_level'],
                                         data['instruction_phonemes'], data['sight_words'], data['temperature'],
@@ -31,7 +31,7 @@ def generate_given_prompt():
     try:
         data = pr.validate_request_body_body(request.get_json(), ['prompt'], [])
     except Exception as e:
-        return jsonify({"error": e})
+        return jsonify({"error": str(e)})
 
     prompt = data['prompt']
     text = api_gen.generate_from_prompt(prompt)
@@ -40,7 +40,11 @@ def generate_given_prompt():
 
 @app.route('/v1/verify')
 def text_to_phoneme():
-    data = request.get_json()
+    try:
+      data = pr.validate_request_body_body(request.get_json(), ['text'], [])
+    except Exception as e:
+      return jsonify({"error": str(e)})
+
     text = data['text']
     phoneme = verify.to_phoneme_list(text)
     return jsonify(phoneme)
