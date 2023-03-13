@@ -11,7 +11,7 @@ app = Flask(__name__)
 @app.route('/v1/generate/<prompt>')
 def generate_given_prompt(prompt):
     text = api_gen.generate_from_prompt(prompt)
-    return jsonify(text)
+    return jsonify({"text": text})
 
 
 @app.route('/v1/verify/<text>')
