@@ -11,7 +11,8 @@ CORS(app)
 #     app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1
 # )
 
-@app.route('/v1/generate')
+
+@app.route('/v1/generate', methods=['GET', 'POST'])
 def generate_given_params():
     try:
         data = pr.validate_request_body_body(request.get_json(),
@@ -26,7 +27,8 @@ def generate_given_params():
                                         data['system_message'])
     return jsonify({"text": text})
 
-@app.route('/v1/generate/prompt')
+
+@app.route('/v1/generate/prompt', methods=['GET', 'POST'])
 def generate_given_prompt():
     try:
         data = pr.validate_request_body_body(request.get_json(), ['prompt'], [])
@@ -38,7 +40,7 @@ def generate_given_prompt():
     return jsonify({"text": text})
 
 
-@app.route('/v1/verify')
+@app.route('/v1/verify', methods=['GET', 'POST'])
 def text_to_phoneme():
     try:
       data = pr.validate_request_body_body(request.get_json(), ['text'], [])
