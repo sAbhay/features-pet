@@ -16,7 +16,7 @@ def generate_given_params():
     try:
         data = pr.validate_request_body_body(request.get_json(),
                                              ['length', 'max_syllables', 'lexile_level',
-                                              'instruction_phonemes', 'sight_words', 'temperature'
+                                              'instruction_phonemes', 'sight_words', 'temperature',
                                               'system_message'], [])
     except Exception as e:
         return jsonify({"error": str(e)})
