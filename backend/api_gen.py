@@ -23,7 +23,10 @@ openai.api_key = api_key
 PROMPT_TEMPLATE = """
 Create a decodable text story of approximately {} words. Each word should have a maximum of {} syllables. The passage should help readers learn the following: {}. The following words are sight words: {}. The story should have a coherent and linear plot. The lexile level should be: {}. There should be absolutely no words that too difficult/long/complicated for a reader whose lexile level is {}. This is super important -- no words that are more complex than that."""
 
-
+# TODO: clean up code
+# TODO: finalise prompt
+# TODO: add while loop to get to length
+# TODO: cut off half-finished sentences
 def generate_from_params(length, max_syllables, lexile_level, instruction_phonemes, sight_words, temperature, system_message):
   instruction_phonemes_str = ", ".join(instruction_phonemes)
   sight_words_str = ", ".join(sight_words)
