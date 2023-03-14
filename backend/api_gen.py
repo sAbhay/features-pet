@@ -27,7 +27,8 @@ Create a decodable text story of approximately {} words. Each word should have a
 # TODO: finalise prompt
 # TODO: add while loop to get to length
 # TODO: cut off half-finished sentences
-def generate_from_params(length, max_syllables, lexile_level, instruction_phonemes, sight_words, temperature, system_message):
+def generate_from_params(length, max_syllables, lexile_level, instruction_phonemes="", sight_words="", temperature=0.1,
+                         system_message="You are a helpful assistant"):
   instruction_phonemes_str = ", ".join(instruction_phonemes)
   sight_words_str = ", ".join(sight_words)
   prompt = PROMPT_TEMPLATE.format(length, max_syllables, instruction_phonemes_str, sight_words_str, lexile_level, lexile_level)

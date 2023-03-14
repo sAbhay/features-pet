@@ -16,15 +16,11 @@ CORS(app)
 def generate_given_params():
     try:
         data = pr.validate_request_body_body(request.get_json(),
-                                             ['length', 'max_syllables', 'lexile_level',
-                                              'instruction_phonemes', 'sight_words', 'temperature',
-                                              'system_message'], [])
+                                             ['length', 'max_syllables', 'lexile_level'], [])
     except Exception as e:
         return jsonify({"error": str(e)})
 
-    text = api_gen.generate_from_params(data['length'], data['max_syllables'], data['lexile_level'],
-                                        data['instruction_phonemes'], data['sight_words'], data['temperature'],
-                                        data['system_message'])
+    text = api_gen.generate_from_params(**data)
     return jsonify({"text": text})
 
 
