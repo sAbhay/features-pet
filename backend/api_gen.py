@@ -20,21 +20,29 @@ openai.api_key = api_key
 # account: Account = service.get_account(auth)
 # print(account.usages)
 
-PROMPT_TEMPLATE = """
-Create a decodable text story of approximately {} words. Each word should have a maximum of {} syllables. The passage should help readers learn the following: {}. The following words are sight words: {}. The story should have a coherent and linear plot. The lexile level should be: {}. There should be absolutely no words that too difficult/long/complicated for a reader whose lexile level is {}. This is super important -- no words that are more complex than that."""
+def create_prompt(length, max_syllables, lexile_level, instruction_focus="", sight_words=""):
+  prompt = f"Create a decodable text story of approximately {length} words. The story should have a coherent and linear plot. "
+  prompt += f"Each word should have a maximum of {max_syllables} syllables. "
+  if instruction_focus != "":
+    prompt += f"The passage should help readers learn the following: {instruction_focus}. "
+  if sight_words != "":
+    prompt += f"The following words are sight words: {sight_words}. "
+  prompt += f"The lexile level should be: {lexile_level}. "
+  prompt += f"There should be absolutely no words that too difficult/long/complicated for a reader whose lexile level is {lexile_level}. "
+  return prompt
 
-# TODO: finalise prompt
+
 # TODO: add while loop to get to length
 # TODO: cut off half-finished sentences
 def generate_from_params(length, max_syllables, lexile_level, instruction_phonemes="", sight_words="", temperature=0.1,
                          system_message="You are a helpful assistant"):
   instruction_phonemes_str = ", ".join(instruction_phonemes)
   sight_words_str = ", ".join(sight_words)
-  prompt = PROMPT_TEMPLATE.format(length, max_syllables, instruction_phonemes_str, sight_words_str, lexile_level, lexile_level)
-  return generate_from_prompt(prompt, system_message=system_message, temperature=temperature, length=length)
+  prompt = create_prompt(length, max_syllables, lexile_level, instruction_phonemes_str, sight_words_str)
+  return generate_from_prompt(prompt, system_message=system_message, temperature=temperature)
 
 
-def generate_from_prompt(prompt, system_message="You are a helpful assistant.", temperature=0.1, length=1024):
+def generate_from_prompt(prompt, system_message="You are a helpful assistant.", temperature=0.1):
   # Make a request
   response = openai.ChatCompletion.create(
     model="gpt-3.5-turbo",
@@ -43,7 +51,6 @@ def generate_from_prompt(prompt, system_message="You are a helpful assistant.", 
       {"role": "user", "content": prompt},
     ],
     temperature=temperature,
-    max_tokens=length,
     top_p=1,
     frequency_penalty=0,
     presence_penalty=0
