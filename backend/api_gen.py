@@ -63,5 +63,5 @@ def generate_from_prompt(prompt, system_message="You are a helpful assistant.", 
 
 
 if __name__ == "__main__":
-  text = generate_from_params(100, 10, 1000, "words with digraphs", "and, these, word", 0, "You are a helpful assistant")
+  text = generate_from_params(300, 10, 100)
   print(text)
