@@ -32,8 +32,6 @@ def create_prompt(length, max_syllables, lexile_level, instruction_focus="", sig
   return prompt
 
 
-# TODO: add while loop to get to length
-# TODO: cut off half-finished sentences
 def generate_from_params(length, max_syllables, lexile_level, instruction_phonemes="", sight_words="", temperature=0.1,
                          system_message="You are a helpful assistant"):
   instruction_phonemes_str = ", ".join(instruction_phonemes)
