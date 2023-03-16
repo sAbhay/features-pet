@@ -46,8 +46,9 @@ def generate_from_params(length, max_syllables, lexile_level, instruction_phonem
                          system_message="You are a helpful assistant"):
   instruction_phonemes_str = ", ".join(instruction_phonemes)
   sight_words_str = ", ".join(sight_words)
-  prompt, failed_categories = create_prompt(length, max_syllables, lexile_level, instruction_phonemes_str, sight_words_str)
-  if not prompt_safe(prompt):
+  prompt = create_prompt(length, max_syllables, lexile_level, instruction_phonemes_str, sight_words_str)
+  safe, failed_categories = prompt_safe(prompt)
+  if not safe:
     return f"The prompt is not safe due to: {', '.join(failed_categories)}. Please change your input."
 
   return generate_from_prompt(prompt, system_message=system_message, temperature=temperature)
