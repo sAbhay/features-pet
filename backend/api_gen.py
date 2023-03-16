@@ -37,16 +37,18 @@ def prompt_safe(prompt):
   response = openai.Moderation.create(
     input=prompt
   )
-  return response.results[0].flagged
+  result = response.results[0]
+  failed_categories = [category for category in result["categories"].keys() if result["categories"][category]]
+  return result.flagged, failed_categories
 
 
 def generate_from_params(length, max_syllables, lexile_level, instruction_phonemes="", sight_words="", temperature=0.1,
                          system_message="You are a helpful assistant"):
   instruction_phonemes_str = ", ".join(instruction_phonemes)
   sight_words_str = ", ".join(sight_words)
-  prompt = create_prompt(length, max_syllables, lexile_level, instruction_phonemes_str, sight_words_str)
+  prompt, failed_categories = create_prompt(length, max_syllables, lexile_level, instruction_phonemes_str, sight_words_str)
   if not prompt_safe(prompt):
-    return "The prompt is not safe. Please change your input."
+    return f"The prompt is not safe due to: {', '.join(failed_categories)}. Please change your input."
 
   return generate_from_prompt(prompt, system_message=system_message, temperature=temperature)
 
