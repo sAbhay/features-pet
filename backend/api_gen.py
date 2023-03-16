@@ -37,6 +37,7 @@ def prompt_safe(prompt):
   response = openai.Moderation.create(
     input=prompt
   )
+  print(response)
   result = response.results[0]
   failed_categories = [category for category in result["categories"].keys() if result["categories"][category]]
   return result.flagged, failed_categories
