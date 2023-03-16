@@ -37,7 +37,7 @@ def prompt_safe(prompt):
   response = openai.Moderation.create(
     input=prompt
   )
-  return response.results.flagged
+  return response.results[0].flagged
 
 
 def generate_from_params(length, max_syllables, lexile_level, instruction_phonemes="", sight_words="", temperature=0.1,
