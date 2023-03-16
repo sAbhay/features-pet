@@ -132,7 +132,7 @@ function App() {
         })
       };
       
-      fetch('http://165.232.142.15:81/v1/generate', requestOptions)
+      fetch('//165.232.142.15:81/v1/generate', requestOptions)
         .then(response => response.json())
         .then(data => handleGeneratedText(data['text']))
         .catch(error => setTextLoading(false));
