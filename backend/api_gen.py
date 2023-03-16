@@ -20,6 +20,7 @@ openai.api_key = api_key
 # account: Account = service.get_account(auth)
 # print(account.usages)
 
+
 def create_prompt(length, max_syllables, lexile_level, instruction_focus="", sight_words=""):
   prompt = f"Create a decodable text story of approximately {length} words. The story should have a coherent and linear plot. "
   prompt += f"Each word should have a maximum of {max_syllables} syllables. "
@@ -32,11 +33,21 @@ def create_prompt(length, max_syllables, lexile_level, instruction_focus="", sig
   return prompt
 
 
+def prompt_safe(prompt):
+  response = openai.Moderation.create(
+    input=prompt
+  )
+  return response.flagged
+
+
 def generate_from_params(length, max_syllables, lexile_level, instruction_phonemes="", sight_words="", temperature=0.1,
                          system_message="You are a helpful assistant"):
   instruction_phonemes_str = ", ".join(instruction_phonemes)
   sight_words_str = ", ".join(sight_words)
   prompt = create_prompt(length, max_syllables, lexile_level, instruction_phonemes_str, sight_words_str)
+  if not prompt_safe(prompt):
+    return "The prompt is not safe. Please change your input."
+
   return generate_from_prompt(prompt, system_message=system_message, temperature=temperature)
 
 
