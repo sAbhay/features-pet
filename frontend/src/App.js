@@ -132,7 +132,7 @@ function App() {
         })
       };
       
-      fetch('//164.90.246.212:443/v1/generate', requestOptions)
+      fetch('//api.featurespet.abhaysinghal.com/v1/generate', requestOptions)
         .then(response => response.json())
         .then(data => handleGeneratedText(data['text']))
         .catch(error => setTextLoading(false));
