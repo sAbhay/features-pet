@@ -10,6 +10,7 @@ import {
   TextField, 
   InputAdornment, 
   IconButton,
+  Button,
   // CircularProgress
   // Box, 
   // List, 
@@ -322,11 +323,11 @@ function App() {
             </AccordionDetails>
           </Accordion>
         </div>
-        <div className='generate-button' onClick={generate}>
+        <Button className='generate-button' onClick={generate}>
           <div className='generate-button-text'>
             Generate
           </div>
-        </div>
+        </Button>
       </div>
       </section>
     </div>
