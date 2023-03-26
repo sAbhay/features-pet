@@ -323,11 +323,11 @@ function App() {
             </AccordionDetails>
           </Accordion>
         </div>
-        <Button className='generate-button' onClick={generate}>
+        <div className='generate-button' onClick={generate}>
           <div className='generate-button-text'>
             Generate
           </div>
-        </Button>
+        </div>
       </div>
       </section>
     </div>
