@@ -161,7 +161,7 @@ function App() {
   return (
     <div className="App">
       <aside className='sidemenu'>
-        <div className='generated-text' style={{whiteSpace: "pre-wrap"}}>
+        <div className='generated-text' style={{whiteSpace: "pre-wrap", overflowY: 'auto'}}>
           {generatedText}
           <Loading loading = {textLoading}/>
         </div>
